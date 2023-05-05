@@ -1,4 +1,4 @@
-FROM node:18.15
+FROM node:20.1.0-alpine
 
 # Create app directory
 WORKDIR /usr/src/csgofloat
@@ -8,13 +8,12 @@ WORKDIR /usr/src/csgofloat
 # where available (npm@5+)
 COPY package*.json ./
 
-RUN npm install
+RUN yarn install
 
 # Bundle app source
 COPY . .
 
 EXPOSE 80
 EXPOSE 443
-VOLUME /config
 
-CMD [ "/bin/bash", "docker_start.sh" ]
+CMD [ "/bin/bash", "docker/start.sh.sh" ]
