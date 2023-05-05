@@ -14,12 +14,6 @@
 
 CSGOFloat is a free and open source API service that allows you to obtain the float and paint seed of any CSGO item using its inspect link.
 
-
-
-
-
-test
-
 ## Table of Contents
   * [API](https://github.com/Step7750/CSGOFloat#api)
   	* [`GET /`](https://github.com/Step7750/CSGOFloat#get-)
