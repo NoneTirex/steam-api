@@ -1,7 +1,7 @@
 FROM node:20.1.0
 
 # Create app directory
-WORKDIR /usr/src/csgofloat
+WORKDIR /app
 
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
@@ -20,4 +20,4 @@ COPY config.ts .
 EXPOSE 80
 EXPOSE 443
 
-CMD [ "/bin/bash", "docker/start.sh.sh" ]
+CMD [ "/bin/bash", "docker/start.sh" ]
