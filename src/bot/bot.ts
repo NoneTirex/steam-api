@@ -23,6 +23,7 @@ export type BotSettings = {
 export type SteamUserSettings = {
     httpProxy?: string
     socksProxy?: string
+    dataDirectory?: string
 }
 
 type InspectRequest = {

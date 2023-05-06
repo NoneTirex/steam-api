@@ -20,7 +20,7 @@ BigInt.prototype.toJSON = function () {
 
 const optionDefinitions = [
     {name: 'config', alias: 'c', type: String, defaultValue: '../config'}, // Config file location
-    {name: 'steam_data', alias: 's', type: String} // Steam data directory
+    {name: 'steamData', alias: 's', type: String} // Steam data directory
 ];
 
 const winston = require('winston'),
@@ -36,28 +36,25 @@ if (CONFIG.logins.length === 0) {
     process.exit(1);
 }
 
-if (args.steam_data) {
-    CONFIG.botSettings.steam_user.dataDirectory = args.steam_data;
-}
-
 for (let [i, loginData] of CONFIG.logins.entries()) {
     const settings: BotSettings = {
         maxAttempts: CONFIG.botSettings.maxAttempts,
         requestDelay: CONFIG.botSettings.requestDelay,
-        requestTTL: CONFIG.botSettings.requestTTL
+        requestTTL: CONFIG.botSettings.requestTTL,
+        steamUser: {}
+    }
+
+    if (args.steamData) {
+        settings.steamUser!.dataDirectory = args.steamData
     }
 
     if (CONFIG.proxies && CONFIG.proxies.length > 0) {
         const proxy = CONFIG.proxies[i % CONFIG.proxies.length];
 
         if (proxy.startsWith('http://')) {
-            settings.steamUser = {
-                httpProxy: proxy
-            }
+            settings.steamUser!.httpProxy = proxy
         } else if (proxy.startsWith('socks5://')) {
-            settings.steamUser = {
-                socksProxy: proxy
-            }
+            settings.steamUser!.socksProxy = proxy
         } else {
             console.log(`Invalid proxy '${proxy}' in config, must prefix with http:// or socks5://`);
             process.exit(1);
