@@ -2,4 +2,4 @@
 
 mkdir -p /steam_data
 
-ts-node index.js -c /app/config.ts -s /steam_data
+npx ts-node index.js -c /app/config.ts -s /steam_data
