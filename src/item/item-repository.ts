@@ -6,6 +6,18 @@ const saveQuery = `
     insert into csgo_item (item_id, m, s, d, rarity, origin, quality, paint_index, paint_seed, def_index, float_value,
                            stickers, last_update)
     values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+    on conflict (item_id) do update set m           = $2,
+                                        s           = $3,
+                                        d           = $4,
+                                        rarity      = $5,
+                                        origin      = $6,
+                                        quality     = $7,
+                                        paint_index = $8,
+                                        paint_seed  = $9,
+                                        def_index   = $10,
+                                        float_value = $11,
+                                        stickers    = $12,
+                                        last_update = $13
 `
 
 export class ItemRepository {
@@ -34,7 +46,9 @@ export class ItemRepository {
     }
 
     async findByAssetId(assetId: bigint): Promise<CsgoItem | null> {
-        const {rows} = await this.pool.query("select * from csgo_item where item_id = $1", [assetId])
+        const {rows} = await this.pool.query("select * from csgo_item where item_id = $1", [
+            unsigned64ToSigned(assetId)
+        ])
         if (rows.length > 0) {
             const row = rows[0]
             const stickers: Array<Sticker> = row.stickers
