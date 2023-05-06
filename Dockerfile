@@ -13,11 +13,11 @@ COPY tsconfig.json .
 RUN yarn install
 
 # Bundle app source
-COPY src .
-COPY docker .
+COPY src/ src/
+COPY docker/start.sh .
 COPY config.ts .
 
 EXPOSE 80
 EXPOSE 443
 
-CMD [ "/bin/bash", "docker/start.sh" ]
+CMD [ "/bin/bash", "start.sh" ]
