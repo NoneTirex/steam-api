@@ -5,7 +5,7 @@ const proxies = fs.readFileSync("proxies.txt", "utf-8")
     .filter(line => line !== "")
     .map(line => {
         const [address, port, username, password] = line.split(":");
-        return `http://${username}:${password}@${address}:${port}`
+        return `socks5://${username}:${password}@${address}:${port}`
     })
 
 const accounts = fs.readFileSync("accounts.txt", "utf-8")
