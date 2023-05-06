@@ -12,10 +12,11 @@ const accounts = fs.readFileSync("accounts.txt", "utf-8")
     .split("\n")
     .filter(line => line !== "")
     .map(line => {
-        const [username, password] = line.split(":")
+        const [username, password, auth] = line.split(":")
         return {
             username,
             password,
+            auth,
         }
     });
 
