@@ -1,4 +1,4 @@
-FROM node:20.1.0-alpine
+FROM node:20.1.0
 
 # Create app directory
 WORKDIR /usr/src/csgofloat
@@ -7,11 +7,15 @@ WORKDIR /usr/src/csgofloat
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
+COPY yarn.lock .
+COPY tsconfig.json .
 
 RUN yarn install
 
 # Bundle app source
-COPY . .
+COPY src .
+COPY docker .
+COPY config.ts .
 
 EXPOSE 80
 EXPOSE 443
