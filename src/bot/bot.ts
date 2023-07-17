@@ -158,7 +158,7 @@ export class Bot extends EventEmitter {
 
             // Yes, checking for string errors sucks, but we have no other attributes to check
             // this error against.
-            if (err.toString().includes('Proxy connection timed out')) {
+            if (err.toString().includes('Proxy connection timed out') || err.toString().includes("Socks5")) {
                 this.logIn();
             }
         });
