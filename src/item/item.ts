@@ -1,5 +1,6 @@
-import {InspectUrl} from "../inspect/inspect-url";
-import GlobalOffensive from "globaloffensive";
+import {InspectUrl} from "../inspect/inspect-url"
+
+const {ItemInfo} = require("globaloffensive")
 
 export type Sticker = {
     slot: number
@@ -30,8 +31,8 @@ export type CsgoItem = {
     lastUpdate: Date
 }
 
-export function itemInfoToCsgoItem(inspectUrl: InspectUrl, itemInfo: GlobalOffensive.ItemInfo): CsgoItem {
-    const stickers: Array<Sticker> = itemInfo.stickers.map((sticker): Sticker => {
+export function itemInfoToCsgoItem(inspectUrl: InspectUrl, itemInfo: typeof ItemInfo): CsgoItem {
+    const stickers: Array<Sticker> = itemInfo.stickers.map((sticker: any): Sticker => {
         return {
             slot: sticker.slot,
             id: sticker.sticker_id,

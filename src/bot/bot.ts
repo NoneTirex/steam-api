@@ -1,9 +1,11 @@
 import {InspectUrl} from "../inspect/inspect-url"
-import SteamUser from "steam-user"
 import SteamTotp from "steam-totp"
-import GlobalOffensive from "globaloffensive"
 
 import {EventEmitter} from "events";
+
+const SteamUser = require("steam-user")
+const GlobalOffensive = require("globaloffensive")
+const ItemInfo = GlobalOffensive.ItemInfo
 
 const winston = require('winston');
 
@@ -37,7 +39,7 @@ type InspectRequest = {
 }
 
 export type InspectResult = {
-    itemInfo: GlobalOffensive.ItemInfo
+    itemInfo: typeof ItemInfo
     delay: number
 }
 
@@ -49,8 +51,8 @@ export class Bot extends EventEmitter {
     private _ready: boolean = false
     private relogin: boolean = false
 
-    private readonly steamClient: SteamUser
-    private readonly csgoClient: GlobalOffensive
+    private readonly steamClient: typeof SteamUser
+    private readonly csgoClient: typeof GlobalOffensive
 
     private inspectRequest?: InspectRequest
 
@@ -206,7 +208,7 @@ export class Bot extends EventEmitter {
             });
         });
 
-        this.csgoClient.on('inspectItemInfo', (itemInfo: GlobalOffensive.ItemInfo) => {
+        this.csgoClient.on('inspectItemInfo', (itemInfo: typeof ItemInfo) => {
             if (!this.inspectRequest) {
                 return;
             }
